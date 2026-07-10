@@ -1,0 +1,248 @@
+// ═══════════════════════════════════════════
+// SwarmOS — Satellite Fleet Data
+// 12 Named Autonomous Orbital Agents
+// ═══════════════════════════════════════════
+
+export interface SatelliteConfig {
+  id: string;
+  name: string;
+  icon: string;
+  mission: string;
+  status: string;
+  fuelPercent: number;
+  missionPriority: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  orbitRadius: number;      // distance from Earth center (arbitrary units)
+  orbitSpeed: number;       // radians per second
+  orbitInclination: number; // degrees tilt from equatorial
+  orbitPhase: number;       // starting angle in radians
+  thrusterCapacity: number; // 0-100
+  trustScore: number;       // 0-100
+  color: string;            // hex color for trail
+}
+
+export const SATELLITE_FLEET: SatelliteConfig[] = [
+  {
+    id: 'gaia',
+    name: 'Gaia Sentinel',
+    icon: '🛰',
+    mission: 'Climate Monitoring',
+    status: 'Monitoring Polar Climate',
+    fuelPercent: 89,
+    missionPriority: 'LOW',
+    orbitRadius: 3.2,
+    orbitSpeed: 0.15,
+    orbitInclination: 45,
+    orbitPhase: 0,
+    thrusterCapacity: 92,
+    trustScore: 97,
+    color: '#00e5ff',
+  },
+  {
+    id: 'luna',
+    name: 'Luna Relay',
+    icon: '🌙',
+    mission: 'Lunar Communications',
+    status: 'Relaying Artemis Base Signal',
+    fuelPercent: 76,
+    missionPriority: 'HIGH',
+    orbitRadius: 4.5,
+    orbitSpeed: 0.08,
+    orbitInclination: 12,
+    orbitPhase: Math.PI * 0.5,
+    thrusterCapacity: 68,
+    trustScore: 94,
+    color: '#c0c0ff',
+  },
+  {
+    id: 'atlas',
+    name: 'Atlas Mesh',
+    icon: '📡',
+    mission: 'Global Internet',
+    status: 'Maintaining Global Internet',
+    fuelPercent: 94,
+    missionPriority: 'CRITICAL',
+    orbitRadius: 2.8,
+    orbitSpeed: 0.22,
+    orbitInclination: 30,
+    orbitPhase: Math.PI * 0.8,
+    thrusterCapacity: 88,
+    trustScore: 99,
+    color: '#2979ff',
+  },
+  {
+    id: 'hermes',
+    name: 'Hermes Cargo',
+    icon: '🚀',
+    mission: 'Cargo Transport',
+    status: 'Delivering Lunar Supplies',
+    fuelPercent: 62,
+    missionPriority: 'MEDIUM',
+    orbitRadius: 3.0,
+    orbitSpeed: 0.18,
+    orbitInclination: 25,
+    orbitPhase: Math.PI * 1.2,
+    thrusterCapacity: 71,
+    trustScore: 88,
+    color: '#ffab00',
+  },
+  {
+    id: 'aegis',
+    name: 'Aegis Prime',
+    icon: '🛡',
+    mission: 'Defense Network',
+    status: 'Scanning Orbital Perimeter',
+    fuelPercent: 91,
+    missionPriority: 'CRITICAL',
+    orbitRadius: 3.5,
+    orbitSpeed: 0.12,
+    orbitInclination: 60,
+    orbitPhase: Math.PI * 1.6,
+    thrusterCapacity: 95,
+    trustScore: 98,
+    color: '#ff4081',
+  },
+  {
+    id: 'horizon',
+    name: 'Horizon Observer',
+    icon: '🔭',
+    mission: 'Deep Space Telescope',
+    status: 'Imaging Andromeda Sector',
+    fuelPercent: 83,
+    missionPriority: 'MEDIUM',
+    orbitRadius: 5.0,
+    orbitSpeed: 0.06,
+    orbitInclination: 75,
+    orbitPhase: Math.PI * 0.3,
+    thrusterCapacity: 79,
+    trustScore: 93,
+    color: '#9c4dff',
+  },
+  {
+    id: 'foundry',
+    name: 'Orbital Foundry',
+    icon: '🏭',
+    mission: 'Orbital Manufacturing',
+    status: 'Printing Solar Panels',
+    fuelPercent: 57,
+    missionPriority: 'MEDIUM',
+    orbitRadius: 3.8,
+    orbitSpeed: 0.1,
+    orbitInclination: 35,
+    orbitPhase: Math.PI * 2.0,
+    thrusterCapacity: 64,
+    trustScore: 90,
+    color: '#ff9100',
+  },
+  {
+    id: 'titan',
+    name: 'Titan Miner',
+    icon: '⛏',
+    mission: 'Asteroid Mining',
+    status: 'Extracting Rare Minerals',
+    fuelPercent: 71,
+    missionPriority: 'LOW',
+    orbitRadius: 4.2,
+    orbitSpeed: 0.09,
+    orbitInclination: 50,
+    orbitPhase: Math.PI * 0.7,
+    thrusterCapacity: 82,
+    trustScore: 91,
+    color: '#ffd740',
+  },
+  {
+    id: 'tempest',
+    name: 'Tempest Watch',
+    icon: '🌤',
+    mission: 'Weather Prediction',
+    status: 'Tracking Cyclone Pacific-9',
+    fuelPercent: 88,
+    missionPriority: 'HIGH',
+    orbitRadius: 2.6,
+    orbitSpeed: 0.25,
+    orbitInclination: 20,
+    orbitPhase: Math.PI * 1.4,
+    thrusterCapacity: 85,
+    trustScore: 96,
+    color: '#00e676',
+  },
+  {
+    id: 'voyager',
+    name: 'Voyager Relay',
+    icon: '🌌',
+    mission: 'Deep Space Relay',
+    status: 'Transmitting Mars Comms',
+    fuelPercent: 45,
+    missionPriority: 'HIGH',
+    orbitRadius: 5.5,
+    orbitSpeed: 0.05,
+    orbitInclination: 85,
+    orbitPhase: Math.PI * 1.8,
+    thrusterCapacity: 55,
+    trustScore: 87,
+    color: '#e040fb',
+  },
+  {
+    id: 'tesla',
+    name: 'Tesla Grid',
+    icon: '⚡',
+    mission: 'Solar Energy',
+    status: 'Beaming Power to Station Omega',
+    fuelPercent: 95,
+    missionPriority: 'CRITICAL',
+    orbitRadius: 3.3,
+    orbitSpeed: 0.17,
+    orbitInclination: 15,
+    orbitPhase: Math.PI * 0.1,
+    thrusterCapacity: 90,
+    trustScore: 99,
+    color: '#00b0ff',
+  },
+  {
+    id: 'helix',
+    name: 'Helix Lab',
+    icon: '🧬',
+    mission: 'Space Research',
+    status: 'Sequencing Zero-G Proteins',
+    fuelPercent: 78,
+    missionPriority: 'LOW',
+    orbitRadius: 3.6,
+    orbitSpeed: 0.13,
+    orbitInclination: 40,
+    orbitPhase: Math.PI * 2.3,
+    thrusterCapacity: 74,
+    trustScore: 92,
+    color: '#64ffda',
+  },
+];
+
+// News ticker items for the top HUD
+export const NEWS_TICKER_ITEMS = [
+  'Earth Orbital Network — ONLINE',
+  'Orbit Health: 98.4%',
+  'New Lunar Colony: OPERATIONAL',
+  'Hermes Cargo Mission: IN PROGRESS',
+  'Communication Delay: 18 ms',
+  'Debris Level: LOW',
+  'Mars Relay Link: STABLE',
+  'Solar Array Output: 14.2 TW',
+  'Orbital Manufacturing: 3 Units Active',
+  'Deep Space Telescope: Imaging Active',
+  'Asteroid Mining Yield: +12% MTD',
+  'Defense Perimeter: SECURE',
+];
+
+// Collision event villain cause
+export const COLLISION_CAUSE = {
+  title: 'Solar Storm Detected',
+  description: 'Electromagnetic disturbance from CME-2055-Δ7 alters Hermes Cargo trajectory.',
+  detail: 'Coronal mass ejection interference with orbital guidance systems.',
+};
+
+// Consequence data if nobody moves
+export const COLLISION_CONSEQUENCES = {
+  debrisFragments: 427,
+  endangeredSatellites: 19,
+  projectedLosses: '$4.3 Billion',
+  communicationBlackout: '12 minutes',
+  affectedRegions: 'North Atlantic, Western Europe',
+};

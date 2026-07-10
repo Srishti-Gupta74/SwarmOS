@@ -1,36 +1,212 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 SwarmOS
 
-## Getting Started
+> **The Operating System for Autonomous Space Infrastructure**
 
-First, run the development server:
+SwarmOS is a decentralized swarm intelligence platform that demonstrates how autonomous satellites can collaboratively detect collision risks, communicate directly with neighboring satellites, reach distributed consensus, and execute collision avoidance maneuvers without relying on a centralized control server.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Designed as a vision for the future of autonomous space infrastructure, SwarmOS showcases how distributed intelligence can enable safer, more scalable, and resilient satellite constellations through real-time peer-to-peer coordination.
+
+---
+
+## 🌍 Overview
+
+As the number of satellites in Earth's orbit continues to grow, traditional centralized mission control becomes increasingly difficult to scale.
+
+Future orbital ecosystems will require satellites to think and act collaboratively instead of waiting for commands from Earth.
+
+SwarmOS explores this future by simulating a decentralized network where satellites:
+
+- Detect potential collision risks
+- Exchange telemetry with nearby satellites
+- Collaboratively decide the safest maneuver
+- Execute trajectory adjustments autonomously
+- Visualize the complete decision-making process in real time
+
+---
+
+# ✨ Features
+
+- 🛰️ Peer-to-Peer Satellite Communication
+- ⚠️ Collision Prediction Engine
+- 🤝 Distributed Swarm Consensus
+- 🚀 Autonomous Trajectory Adjustment
+- 🌍 Real-Time 3D Orbital Visualization
+- 📊 Interactive Mission Control Dashboard
+- 🧠 Explainable Decision-Making
+- 🎬 Cinematic Story Mode
+- 📡 Live Telemetry & Activity Feed
+
+---
+
+# 🧠 How SwarmOS Works
+
+Every satellite functions as an autonomous intelligent agent.
+
+Instead of depending on a central controller, nearby satellites collaborate whenever a potential collision is detected.
+
+### Workflow
+
+1. Satellites continuously predict future orbital trajectories.
+2. A potential collision is detected inside the safety threshold.
+3. Nearby satellites exchange telemetry using peer-to-peer communication.
+4. Each satellite evaluates its operational state.
+5. A distributed consensus process determines the most suitable satellite to maneuver.
+6. The selected satellite computes an optimized trajectory adjustment.
+7. Thrusters execute the maneuver.
+8. Safe orbital operation is restored.
+
+The complete process is visualized in real time through the Mission Control interface.
+
+---
+
+# 🤝 Distributed Swarm Consensus (DSC)
+
+SwarmOS implements a custom **rule-based distributed consensus algorithm** called **Distributed Swarm Consensus (DSC)**.
+
+Rather than relying on a single decision-maker, every nearby satellite independently evaluates its suitability for performing the avoidance maneuver.
+
+Each satellite considers factors such as:
+
+- Remaining Fuel
+- Mission Priority
+- Relative Position
+- Maneuver Cost
+
+These evaluations are exchanged across the peer-to-peer network before reaching a shared decision on the optimal satellite to maneuver.
+
+### Algorithm Workflow
+
+```text
+Collision Prediction
+        │
+        ▼
+Peer-to-Peer Telemetry Exchange
+        │
+        ▼
+Local Suitability Evaluation
+        │
+        ▼
+Distributed Consensus
+        │
+        ▼
+Trajectory Optimization
+        │
+        ▼
+Autonomous Thruster Maneuver
+        │
+        ▼
+Mission Restored
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 🏗️ System Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+                 SwarmOS
 
-## Learn More
+        Autonomous Satellite Agents
+                    │
+                    ▼
+      Collision Detection Module
+                    │
+                    ▼
+     Peer-to-Peer Communication Layer
+                    │
+                    ▼
+      Distributed Consensus Engine
+                    │
+                    ▼
+     Trajectory Optimization Module
+                    │
+                    ▼
+ Autonomous Maneuver Execution Layer
+                    │
+                    ▼
+      Real-Time Mission Visualization
+```
 
-To learn more about Next.js, take a look at the following resources:
+Each satellite behaves as an independent node.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+There is **no central controller**, eliminating single points of failure and enabling scalable autonomous coordination.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# 💡 Key Innovations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Decentralized swarm intelligence architecture
+- Peer-to-peer satellite communication
+- Rule-based distributed consensus
+- Autonomous collision avoidance
+- Explainable maneuver selection
+- Real-time mission visualization
+- Interactive futuristic mission-control interface
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+## 3D Visualization
+
+- React Three Fiber
+- Drei
+- Framer Motion
+
+## State Management
+
+- Zustand
+
+## Simulation
+
+- Collision Detection Engine
+- Distributed Swarm Consensus (DSC)
+- Trajectory Optimization Logic
+- Real-Time Orbital Simulation
+
+---
+
+# 📸 Screenshots
+
+> *(Add application screenshots here.)*
+
+---
+
+# 🚀 Future Scope
+
+SwarmOS can be extended to support:
+
+- Mega satellite constellations
+- Lunar communication infrastructure
+- Deep-space relay networks
+- Autonomous orbital logistics
+- Space debris mitigation
+- Multi-agent resource coordination
+- AI-assisted orbital traffic management
+
+---
+
+# 👥 Team
+
+## Radiance
+
+**Developer**
+
+- Srishti Suman Gupta
+
+---
+
+# 📜 License
+
+This project is released for educational and demonstration purposes.
+
+---
+
+# 🌌 Vision
+
+> **"Today, satellites wait for commands. Tomorrow, they'll protect each other."**
