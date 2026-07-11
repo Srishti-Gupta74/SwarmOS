@@ -103,44 +103,105 @@ Mission Restored
 # 🏗️ System Architecture
 
 ```text
-                 SwarmOS
-
-        Autonomous Satellite Agents
-                    │
-                    ▼
-      Collision Detection Module
-                    │
-                    ▼
-     Peer-to-Peer Communication Layer
-                    │
-                    ▼
-      Distributed Consensus Engine
-                    │
-                    ▼
-     Trajectory Optimization Module
-                    │
-                    ▼
- Autonomous Maneuver Execution Layer
-                    │
-                    ▼
-      Real-Time Mission Visualization
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         AUTONOMOUS SATELLITE LAYER                         │
+│                    (Simultaneous Parallel Capabilities)                    │
+├────────────────────────────────────────────────────────────────────────────┤
+│  [ Satellite Agents ]   [ Orbital Motion ]   [ P2P Communication Network ] │
+│                   [ Real-Time Telemetry Exchange ]                         │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                           SWARM DECISION ENGINE                            │
+│                        (Sequential Decision Pipeline)                      │
+├────────────────────────────────────────────────────────────────────────────┤
+│                       1. Collision Prediction                              │
+│                (Detect vector intersection D < 5.0 km)                     │
+│                                     ↓                                      │
+│                  2. Suitability Score Evaluation                           │
+│     (Each satellite locally computes: Fuel * 0.4 + Priority * 0.4)         │
+│                                     ↓                                      │
+│                       3. Distributed Consensus                             │
+│     (Nodes exchange scores & elect candidate with highest suitability)     │
+│                                     ↓                                      │
+│                      4. Trajectory Optimization                            │
+│                 (Compute exact precision ΔV burn vector)                   │
+│                                     ↓                                      │
+│                        5. Autonomous Maneuver                              │
+│              (Execute thruster firing without ground delay)                │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                            VISUALIZATION LAYER                             │
+│                    (Concurrent Client-Side UI Modules)                     │
+├────────────────────────────────────────────────────────────────────────────┤
+│  [ 3D Earth Viewport ]  [ Mission Control HUD ]  [ Live P2P Activity Feed ]│
+│         [ Explainability Panel ]       [ Scenario Simulator Controls ]     │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
-Each satellite behaves as an independent node.
-
-There is **no central controller**, eliminating single points of failure and enabling scalable autonomous coordination.
+Each satellite behaves as an independent node. There is **no central controller**, eliminating single points of failure and enabling scalable autonomous coordination.
 
 ---
 
-# 💡 Key Innovations
+# ⚙️ Quick Start & Setup Instructions
 
-- Decentralized swarm intelligence architecture
-- Peer-to-peer satellite communication
-- Rule-based distributed consensus
-- Autonomous collision avoidance
-- Explainable maneuver selection
-- Real-time mission visualization
-- Interactive futuristic mission-control interface
+Whether you are evaluating SwarmOS for judging or developing locally, setting up the project takes less than 2 minutes.
+
+### 📋 Prerequisites
+*   **Node.js**: Version `18.17.0` or higher (`20.x` recommended).
+*   **npm / pnpm / yarn / bun**: Package manager (`npm` is included with Node.js by default).
+*   **Git**: For cloning the repository.
+
+---
+
+### 🚀 Local Development Setup (Step-by-Step)
+
+#### Step 1: Clone the Repository
+Open your terminal / command prompt and clone the SwarmOS project:
+```bash
+git clone https://github.com/Srishti-Gupta74/SwarmOS.git
+cd SwarmOS
+```
+
+#### Step 2: Install Dependencies
+Install the required Next.js, Three.js, React Three Fiber, and Tailwind CSS packages:
+```bash
+npm install
+```
+
+#### Step 3: Start the Development Server
+Run the local high-frequency simulation server:
+```bash
+npm run dev
+```
+
+#### Step 4: Open in Your Browser
+Open Chrome, Edge, or Firefox and navigate to:
+👉 **[http://localhost:3000](http://localhost:3000)**
+
+You will immediately enter the **SwarmOS 2055 Mission Control Command Deck**! Click on any satellite in 3D space, test scenario triggers (`Solar Storm`, `Debris`), or trigger a live collision test to watch the P2P consensus matrix in action.
+
+---
+
+### 📦 Production Build & Verification
+
+To verify and test the optimized static WebGL production build locally:
+```bash
+npm run build
+npm run start
+```
+
+---
+
+### 🌐 Instant Cloud Deployment (Vercel)
+
+SwarmOS is natively optimized for zero-configuration deployment on **Vercel**:
+1. Push your changes to GitHub (`git push origin main`).
+2. Import the repository in **[vercel.com](https://vercel.com/dashboard)**.
+3. Click **Deploy** (no custom environment variables required).
 
 ---
 
@@ -148,26 +209,29 @@ There is **no central controller**, eliminating single points of failure and ena
 
 ## Frontend
 
-- Next.js
-- TypeScript
-- Tailwind CSS
+- Next.js 16 (App Router + Turbopack)
+- React 19 (`use client` Concurrent Architecture)
+- TypeScript 5.x
+- Tailwind CSS 4 & Vanilla CSS Variables
 
 ## 3D Visualization
 
-- React Three Fiber
-- Drei
-- Framer Motion
+- Three.js (WebGL Hardware Engine)
+- React Three Fiber (`@react-three/fiber`)
+- Drei (`@react-three/drei` Spatial Badges)
+- Framer Motion (Micro-animations & transitions)
+- Lucide React (Aerospace vector iconography)
 
-## State Management
+## State Management & Logic
 
-- Zustand
+- Zustand 5 (Decoupled P2P Swarm Store — `1,284 Msg/sec`)
 
-## Simulation
+## Simulation Engine
 
-- Collision Detection Engine
-- Distributed Swarm Consensus (DSC)
-- Trajectory Optimization Logic
-- Real-Time Orbital Simulation
+- Kinematic Collision Prediction Engine (`D < 5.0 km threshold`)
+- Distributed Consensus Engine (`Suitability Score Evaluation Matrix`)
+- Trajectory Optimization Logic (`ΔV evasion burn vector calculation`)
+- Real-Time Orbital Mechanics Simulator
 
 ---
 
