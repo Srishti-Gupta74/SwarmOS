@@ -259,12 +259,6 @@ SwarmOS can be extended to support:
 
 ---
 
-# 📜 License
-
-This project is released for educational and demonstration purposes.
-
----
-
 # 🌌 Vision
 
 > **"Today, satellites wait for commands. Tomorrow, they'll protect each other."**
