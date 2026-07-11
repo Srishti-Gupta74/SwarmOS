@@ -235,12 +235,6 @@ SwarmOS is natively optimized for zero-configuration deployment on **Vercel**:
 
 ---
 
-# 📸 Screenshots
-
-> *(Add application screenshots here.)*
-
----
-
 # 🚀 Future Scope
 
 SwarmOS can be extended to support:
