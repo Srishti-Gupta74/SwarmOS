@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Globe, Cpu, Radio, Activity, ShieldCheck, Clock } from 'lucide-react';
 import { useSwarmStore } from '../store/useSwarmStore';
 
@@ -59,27 +58,22 @@ export default function TopHUD() {
         </div>
       </div>
 
-      {/* ── Center: Tactical Status Pill (Sophisticated Aerospace Palette) ── */}
+      {/* ── Center: Clean Status Indicator (No Double-Stacked Overlapping Pills!) ── */}
       <div className="hidden md:flex items-center justify-center">
         {activeCollision ? (
-          <motion.div
-            initial={{ scale: 0.96 }}
-            animate={{ scale: [1, 1.015, 1] }}
-            transition={{ repeat: Infinity, duration: 1.8 }}
-            className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/50 text-amber-300 text-xs font-bold uppercase tracking-widest font-mono shadow-[0_0_20px_rgba(245,158,11,0.25)]"
-          >
+          <div className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider font-mono">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-            <span>TACTICAL WARNING: VECTOR INTERSECTION &lt; 5.0 KM • P2P QUORUM ENGAGED</span>
-          </motion.div>
+            <span>MESH ANOMALY DETECTED • AUTONOMOUS EVASION IN PROGRESS</span>
+          </div>
         ) : (
-          <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-widest font-mono shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+          <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-zinc-300 text-xs font-bold uppercase tracking-widest font-mono">
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             <span>MESH STATUS: 14MS OPTICAL ISL • ALL NODES NOMINAL</span>
           </div>
         )}
       </div>
 
-      {/* ── Right: Cohesive Monochrome Metrics (No Rainbow Colors) ── */}
+      {/* ── Right: Cohesive Monochrome Metrics ── */}
       <div className="flex items-center gap-5 lg:gap-6 shrink-0 text-xs font-mono">
         <div className="flex flex-col items-end">
           <span className="text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-1">

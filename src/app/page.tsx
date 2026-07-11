@@ -88,9 +88,8 @@ export default function Home() {
     startTimeline();
   }, [startTimeline]);
 
-  // Handle demo restart
+  // Handle simulation restart (`Restart Simulation`)
   const handleRestart = useCallback(() => {
-    // Reset everything
     initSatellites();
     useSwarmStore.setState({
       phase: 'STORY',
@@ -118,7 +117,7 @@ export default function Home() {
       {/* Story Mode Overlay */}
       {showStory && <StoryMode onComplete={handleStoryComplete} />}
 
-      {/* Mission Complete Overlay */}
+      {/* Mission Complete Overlay (`Restart Simulation`) */}
       {phase === 'MISSION_COMPLETE' && <MissionComplete onRestart={handleRestart} />}
 
       {/* Red Alert Overlay */}
@@ -130,12 +129,12 @@ export default function Home() {
       </div>
 
       {/* Left Sidebar */}
-      <div className="absolute top-[52px] left-0 bottom-0 z-20 w-[280px]">
+      <div className="absolute top-[56px] left-0 bottom-0 z-20 w-[310px]">
         <Sidebar />
       </div>
 
       {/* Right Panel - AI Feed */}
-      <div className="absolute top-[52px] right-0 bottom-0 z-20 w-[320px]">
+      <div className="absolute top-[56px] right-0 bottom-0 z-20 w-[340px]">
         <AIFeed />
       </div>
 
@@ -144,28 +143,16 @@ export default function Home() {
         <OrbitalScene />
       </div>
 
-      {/* Auto AI Explain Card (bottom-left, above sidebar) */}
-      <div className="absolute bottom-4 left-[296px] z-30">
-        <AIExplainCard />
-      </div>
-
-      {/* Consequence Card (bottom-right, beside AI Feed) */}
-      <div className="absolute bottom-4 right-[336px] z-30">
-        <ConsequenceCard />
-      </div>
+      {/* Floating Precision Cards (Each has internal `fixed` positioning with 100% collision-free layout) */}
+      <AIExplainCard />
+      <ConsequenceCard />
+      <SwarmDecisionTimeline />
+      <SatelliteInspector />
 
       {/* Time Controls (bottom-center) */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
         <TimeControls />
       </div>
-
-      {/* Contextual Swarm Decision Sequence Capsule (Top-Center) - only shown during active anomalies */}
-      <div className="absolute top-[56px] left-1/2 -translate-x-1/2 z-30">
-        <SwarmDecisionTimeline />
-      </div>
-
-      {/* Interactive Spatial Telemetry Inspector HUD */}
-      <SatelliteInspector />
     </div>
   );
 }

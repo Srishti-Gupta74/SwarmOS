@@ -62,16 +62,16 @@ export default function SatelliteInspector() {
         initial={{ opacity: 0, scale: 0.96, y: 25 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 15 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed bottom-6 right-[360px] z-[300] w-[360px] max-w-[calc(100vw-2rem)] p-5 rounded-2xl border border-white/[0.1] shadow-[0_20px_70px_rgba(0,0,0,0.95)] backdrop-blur-3xl bg-[#050b14]/96 font-mono text-white overflow-hidden pointer-events-auto"
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="fixed bottom-6 right-[360px] z-[300] w-[350px] max-w-[calc(100vw-2rem)] p-5 rounded-2xl border border-white/[0.1] shadow-[0_20px_70px_rgba(0,0,0,0.95)] backdrop-blur-3xl bg-[#050b14]/96 font-mono text-white overflow-hidden pointer-events-auto"
       >
-        {/* Top subtle silver/blue reflection */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-20 bg-gradient-to-b from-blue-500/10 to-transparent blur-2xl pointer-events-none" />
+        {/* Top subtle blue reflection */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-16 bg-gradient-to-b from-blue-500/10 to-transparent blur-xl pointer-events-none" />
 
         {/* ── Inspector Header Bar ── */}
-        <div className="relative z-10 flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/[0.08]">
+        <div className="relative z-10 flex items-center justify-between pb-3.5 mb-3 border-b border-white/[0.08]">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.12] flex items-center justify-center text-xl shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/[0.12] flex items-center justify-center text-lg shrink-0">
               {satIcon}
             </div>
             <div className="min-w-0">
@@ -81,7 +81,7 @@ export default function SatelliteInspector() {
                 </h3>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               </div>
-              <p className="text-[10px] text-zinc-400 font-bold mt-0.5 uppercase tracking-wider font-mono truncate">
+              <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider font-mono truncate">
                 {satMission}
               </p>
             </div>
@@ -89,48 +89,48 @@ export default function SatelliteInspector() {
 
           <button
             onClick={() => setSelectedId(null)}
-            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
+            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* ── Precision Engineering Grid (Monochromatic & Serious) ── */}
-        <div className="relative z-10 grid grid-cols-2 gap-2 mb-4 text-xs">
-          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
-            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+        {/* ── Open, Breathable Engineering Grid (No Cluttered Box Dividers) ── */}
+        <div className="relative z-10 grid grid-cols-2 gap-3 mb-4 text-xs">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[9px] text-zinc-500 uppercase tracking-wider flex items-center gap-1 font-sans">
               <Navigation className="w-3 h-3 text-zinc-400" /> Velocity
             </span>
-            <span className="text-sm font-bold text-white">7.64 <span className="text-[10px] text-zinc-400 font-normal">km/s</span></span>
+            <span className="text-sm font-bold text-white">7.64 <span className="text-[10px] text-zinc-500 font-normal">km/s</span></span>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
-            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+          <div className="flex flex-col gap-0.5 border-l border-white/[0.08] pl-3">
+            <span className="text-[9px] text-zinc-500 uppercase tracking-wider flex items-center gap-1 font-sans">
               <Activity className="w-3 h-3 text-zinc-400" /> Orbital Alt
             </span>
-            <span className="text-sm font-bold text-white">1,240 <span className="text-[10px] text-zinc-400 font-normal">km</span></span>
+            <span className="text-sm font-bold text-white">1,240 <span className="text-[10px] text-zinc-500 font-normal">km</span></span>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
-            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+          <div className="flex flex-col gap-0.5 pt-2 border-t border-white/[0.08]">
+            <span className="text-[9px] text-zinc-500 uppercase tracking-wider flex items-center gap-1 font-sans">
               <Radio className="w-3 h-3 text-zinc-400" /> Optical Ping
             </span>
-            <span className="text-sm font-bold text-white">14.2 <span className="text-[10px] text-zinc-400 font-normal">ms</span></span>
+            <span className="text-sm font-bold text-white">14.2 <span className="text-[10px] text-zinc-500 font-normal">ms</span></span>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
-            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+          <div className="flex flex-col gap-0.5 pt-2 border-t border-l border-white/[0.08] pl-3">
+            <span className="text-[9px] text-zinc-500 uppercase tracking-wider flex items-center gap-1 font-sans">
               <Zap className="w-3 h-3 text-zinc-400" /> Laser Output
             </span>
-            <span className="text-sm font-bold text-white">2,450 <span className="text-[10px] text-zinc-400 font-normal">W</span></span>
+            <span className="text-sm font-bold text-white">2,450 <span className="text-[10px] text-zinc-500 font-normal">W</span></span>
           </div>
         </div>
 
         {/* ── Hydrazine Propellant Reserve Gauge ── */}
         <div className="relative z-10 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4 font-mono">
-          <div className="flex items-center justify-between text-xs mb-2">
-            <span className="text-zinc-400 uppercase font-sans font-bold flex items-center gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-zinc-400" /> Hydrazine Reserve
+          <div className="flex items-center justify-between text-xs mb-1.5">
+            <span className="text-zinc-400 uppercase font-sans font-bold flex items-center gap-1.5 text-[11px]">
+              <Flame className="w-3 h-3 text-zinc-400" /> Propellant Reserve
             </span>
             <span
               className={`font-bold ${
@@ -158,22 +158,22 @@ export default function SatelliteInspector() {
           </div>
         </div>
 
-        {/* ── Action Workbench Buttons (Cohesive Monochromatic / Blue Accent) ── */}
+        {/* ── Clean Action Workbench Buttons ── */}
         <div className="relative z-10 space-y-2">
           <button
             onClick={handleBroadcastPing}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
           >
             <Radio className="w-3.5 h-3.5 animate-pulse text-blue-400" />
-            <span>Transmit P2P Optical Ping</span>
+            <span>Transmit Optical Ping</span>
           </button>
 
           <button
             onClick={handleDiagnosticBurn}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] text-zinc-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] text-zinc-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
           >
             <Zap className="w-3.5 h-3.5 text-zinc-400" />
-            <span>Test Evasion Thruster Pulse</span>
+            <span>Test Thruster Pulse</span>
           </button>
         </div>
       </motion.div>

@@ -8,9 +8,6 @@ export default function AIExplainCard() {
   const phase = useSwarmStore((s) => s.phase);
   const consensusResult = useSwarmStore((s) => s.consensusResult);
 
-  // Apple Vision Pro / Tesla Mission Control principle:
-  // ONLY show when relevant (CONSENSUS / VOLUNTEER / THRUSTER_BURN).
-  // Immediately return null once resolved (COLLISION_AVOIDED / NORMAL_OPS) to keep screen calm.
   const isDecisionStep = phase === 'CONSENSUS' || phase === 'VOLUNTEER';
   const isBurnStep = phase === 'THRUSTER_BURN';
 
@@ -23,54 +20,54 @@ export default function AIExplainCard() {
       {isDecisionStep && (
         <motion.div
           key="explain-card"
-          initial={{ opacity: 0, y: 30, scale: 0.94 }}
+          initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.94 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-6 left-6 z-[200] w-[340px] max-w-[calc(100vw-2rem)] p-4 rounded-2xl border border-white/15 shadow-[0_10px_40px_rgba(0,0,0,0.7)] backdrop-blur-2xl bg-[#0a0f18]/90 font-mono text-white"
+          exit={{ opacity: 0, y: 15, scale: 0.96 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="fixed bottom-6 left-[325px] z-[200] w-[340px] max-w-[calc(100vw-2rem)] p-4 sm:p-5 rounded-2xl border border-white/[0.12] shadow-[0_20px_60px_rgba(0,0,0,0.95)] backdrop-blur-3xl bg-[#050b14]/96 font-mono text-white pointer-events-auto"
         >
-          <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+          <div className="flex items-center justify-between border-b border-white/[0.08] pb-2.5 mb-3">
             <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-400" />
-              <span className="text-xs font-bold uppercase tracking-wider text-white">
+              <Award className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-bold uppercase tracking-wider text-white font-sans">
                 {consensusResult.volunteerName ?? 'Gaia Sentinel'} Selected
               </span>
             </div>
-            <span className="text-[9px] font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase">
+            <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-white/[0.08] text-zinc-300 border border-white/[0.1] uppercase font-mono">
               P2P Selected
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs mb-3">
-            <div className="p-2 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-              <span className="text-[10px] text-gray-400 uppercase">Fuel Reserve</span>
-              <span className="font-extrabold text-emerald-400">91%</span>
+            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+              <span className="text-[10px] text-zinc-400 uppercase font-sans">Fuel Reserve</span>
+              <span className="font-bold text-white font-mono">91%</span>
             </div>
-            <div className="p-2 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-              <span className="text-[10px] text-gray-400 uppercase">Mission Priority</span>
-              <span className="font-extrabold text-cyan-300">Low</span>
+            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+              <span className="text-[10px] text-zinc-400 uppercase font-sans">Mission Priority</span>
+              <span className="font-bold text-zinc-300 font-mono">Low</span>
             </div>
-            <div className="p-2 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-              <span className="text-[10px] text-gray-400 uppercase">Required Burn</span>
-              <span className="font-extrabold text-amber-300">0.42 m/s</span>
+            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+              <span className="text-[10px] text-zinc-400 uppercase font-sans">Required Burn</span>
+              <span className="font-bold text-amber-400 font-mono">0.42 m/s</span>
             </div>
-            <div className="p-2 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-              <span className="text-[10px] text-gray-400 uppercase">Confidence</span>
-              <span className="font-extrabold text-emerald-400">{consensusResult.confidence ?? 98}%</span>
+            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+              <span className="text-[10px] text-zinc-400 uppercase font-sans">Confidence</span>
+              <span className="font-bold text-white font-mono">{consensusResult.confidence ?? 98}%</span>
             </div>
           </div>
 
-          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2 text-xs text-gray-200">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-start gap-2 text-xs text-zinc-300 font-sans">
+            <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
             <div className="flex flex-col">
-              <span className="text-[10px] text-gray-400 uppercase font-bold">Reason:</span>
-              <span className="text-white leading-tight">Lowest mission impact across local neighborhood.</span>
+              <span className="text-[10px] text-zinc-400 uppercase font-bold">Autonomous Decision:</span>
+              <span className="text-white leading-tight">Lowest mission impact across local neighborhood mesh.</span>
             </div>
           </div>
 
-          <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-gray-400">
-            <span>Distributed Swarm Decision</span>
-            <span className="text-cyan-400 font-bold">● Auto-dismissing</span>
+          <div className="mt-3 pt-2 border-t border-white/[0.08] flex items-center justify-between text-[10px] text-zinc-500 font-mono">
+            <span>Distributed Swarm Mesh</span>
+            <span className="text-blue-400 font-bold">● Auto-Dismissing</span>
           </div>
         </motion.div>
       )}
@@ -79,35 +76,35 @@ export default function AIExplainCard() {
       {isBurnStep && (
         <motion.div
           key="maneuver-card"
-          initial={{ opacity: 0, y: 30, scale: 0.94 }}
+          initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.94 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-6 left-6 z-[200] w-[300px] max-w-[calc(100vw-2rem)] p-4 rounded-2xl border border-amber-500/40 shadow-[0_10px_40px_rgba(245,158,11,0.2)] backdrop-blur-2xl bg-[#0a0f18]/95 font-mono text-white"
+          exit={{ opacity: 0, y: 15, scale: 0.96 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="fixed bottom-6 left-[325px] z-[200] w-[320px] max-w-[calc(100vw-2rem)] p-4 sm:p-5 rounded-2xl border border-amber-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.95)] backdrop-blur-3xl bg-[#050b14]/96 font-mono text-white pointer-events-auto"
         >
-          <div className="flex items-center gap-2 border-b border-white/10 pb-2 mb-3">
+          <div className="flex items-center gap-2 border-b border-white/[0.08] pb-2.5 mb-3">
             <Flame className="w-4 h-4 text-amber-400 animate-bounce" />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              Trajectory Adjustment
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-300 font-sans">
+              Trajectory Adjustment Burn
             </span>
           </div>
 
           <div className="space-y-2 text-xs">
-            <div className="flex items-center justify-between p-2 rounded-xl bg-white/5">
-              <span className="text-gray-400 uppercase text-[11px]">ΔV</span>
-              <strong className="text-white text-sm font-extrabold">0.42 m/s</strong>
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+              <span className="text-zinc-400 uppercase font-sans text-[11px]">ΔV Vector</span>
+              <strong className="text-white text-sm font-bold font-mono">0.42 m/s</strong>
             </div>
-            <div className="flex items-center justify-between p-2 rounded-xl bg-white/5">
-              <span className="text-gray-400 uppercase text-[11px]">Burn Duration</span>
-              <strong className="text-amber-400 text-sm font-extrabold">2.1 sec</strong>
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+              <span className="text-zinc-400 uppercase font-sans text-[11px]">Burn Duration</span>
+              <strong className="text-amber-400 text-sm font-bold font-mono">2.1 sec</strong>
             </div>
-            <div className="flex items-center justify-between p-2 rounded-xl bg-white/5">
-              <span className="text-gray-400 uppercase text-[11px]">Orbit Shift</span>
-              <strong className="text-emerald-400 text-sm font-extrabold">+0.18°</strong>
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+              <span className="text-zinc-400 uppercase font-sans text-[11px]">Orbit Correction</span>
+              <strong className="text-white text-sm font-bold font-mono">+0.18°</strong>
             </div>
           </div>
 
-          <div className="mt-3 pt-2 border-t border-white/10 text-center text-[10px] text-amber-400/80 animate-pulse font-bold">
+          <div className="mt-3.5 pt-2.5 border-t border-white/[0.08] text-center text-[10px] text-amber-400 animate-pulse font-bold tracking-wider uppercase font-mono">
             🔥 EXECUTING EVASION BURN...
           </div>
         </motion.div>
