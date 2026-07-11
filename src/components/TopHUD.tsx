@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Globe, Cpu, User, MessageSquare } from 'lucide-react';
+import { Globe, Cpu, Radio, Activity, ShieldCheck, Clock } from 'lucide-react';
 import { useSwarmStore } from '../store/useSwarmStore';
-import { NEWS_TICKER_ITEMS } from '../data/satellites';
 
 function formatNumber(n: number): string {
   return n.toLocaleString('en-US');
@@ -13,11 +12,10 @@ function formatNumber(n: number): string {
 export default function TopHUD() {
   const autonomousDecisions = useSwarmStore((s) => s.autonomousDecisionsToday || (s as any).autonomousDecisions || 184921334);
   const messagesPerSec = useSwarmStore((s) => s.messagesPerSec);
-  const isPaused = useSwarmStore((s) => s.isPaused);
+  const activeCollision = useSwarmStore((s) => s.activeCollision);
 
   const [utcTime, setUtcTime] = useState('--:--:--');
 
-  // Real UTC clock
   useEffect(() => {
     const update = () => {
       const now = new Date();
@@ -28,100 +26,99 @@ export default function TopHUD() {
     return () => clearInterval(interval);
   }, []);
 
-  // Duplicate ticker items for seamless loop
-  const tickerText = [...NEWS_TICKER_ITEMS, ...NEWS_TICKER_ITEMS]
-    .join(' ● ');
-
   return (
-    <motion.header
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="glass w-full h-[52px] shrink-0 flex items-center px-4 z-50 relative"
-      style={{
-        borderBottom: '1px solid var(--border-glass)',
-        boxShadow: '0 1px 20px rgba(0, 229, 255, 0.05)',
-      }}
+    <header
+      className="w-full h-14 shrink-0 flex items-center justify-between px-5 z-50 relative bg-[#050b14]/95 backdrop-blur-2xl border-b border-white/[0.08] font-mono text-white select-none"
     >
-      {/* ── Left: World Timeline ── */}
-      <div className="flex items-center gap-4 shrink-0 w-[220px]">
-        <div className="flex items-center gap-2">
-          <Globe className="w-4 h-4 text-[var(--cyan)]" />
-          <span
-            className="text-lg font-bold text-[var(--text-primary)] tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            2055
-          </span>
-        </div>
-        <div className="flex flex-col leading-none">
-          <span
-            className="text-[0.7rem] font-semibold text-[var(--cyan)] tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            {utcTime} UTC
-          </span>
-          <span className="text-[0.55rem] text-[var(--text-dim)] tracking-widest uppercase mt-0.5">
-            Earth Orbit
-          </span>
-        </div>
-      </div>
-
-      {/* ── Center: News Ticker ── */}
-      <div className="flex-1 mx-4 ticker-container">
-        <div className="animate-ticker inline-block whitespace-nowrap" style={{ animationPlayState: isPaused ? 'paused' : 'running' }}>
-          <span
-            className="text-[0.65rem] text-[var(--text-dim)] tracking-wider"
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            {tickerText}
-          </span>
-        </div>
-      </div>
-
-      {/* ── Right: Key Metrics ── */}
+      {/* ── Left: Command Deck Identification & UTC Clock ── */}
       <div className="flex items-center gap-5 shrink-0">
-        <div className="hud-metric">
-          <span className="hud-metric-label flex items-center gap-1">
-            <Cpu className="w-3 h-3" />
-            Orbital Pop.
-          </span>
-          <span className="hud-metric-value text-[0.85rem]">2,842,198</span>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.12] flex items-center justify-center text-white">
+            <Globe className="w-4 h-4 text-blue-400" />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black tracking-widest uppercase text-white font-sans">
+                SWARM<span className="text-blue-400">OS</span>
+              </span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/[0.08] text-zinc-300 border border-white/[0.1] font-mono">
+                v2055.1
+              </span>
+            </div>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-mono">
+              Autonomous LEO Constellation
+            </span>
+          </div>
         </div>
 
-        <div className="hud-metric">
-          <span className="hud-metric-label flex items-center gap-1">
-            <Cpu className="w-3 h-3" />
-            Auto Decisions
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-zinc-300 font-mono">
+          <Clock className="w-3.5 h-3.5 text-blue-400" />
+          <span className="font-bold text-white">{utcTime} UTC</span>
+          <span className="text-zinc-600">•</span>
+          <span className="text-[11px] text-zinc-400 uppercase">Sector: Orbital Zero</span>
+        </div>
+      </div>
+
+      {/* ── Center: Tactical Status Pill (Sophisticated Aerospace Palette) ── */}
+      <div className="hidden md:flex items-center justify-center">
+        {activeCollision ? (
+          <motion.div
+            initial={{ scale: 0.96 }}
+            animate={{ scale: [1, 1.015, 1] }}
+            transition={{ repeat: Infinity, duration: 1.8 }}
+            className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/50 text-amber-300 text-xs font-bold uppercase tracking-widest font-mono shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+          >
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+            <span>TACTICAL WARNING: VECTOR INTERSECTION &lt; 5.0 KM • P2P QUORUM ENGAGED</span>
+          </motion.div>
+        ) : (
+          <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-widest font-mono shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+            <span>MESH STATUS: 14MS OPTICAL ISL • ALL NODES NOMINAL</span>
+          </div>
+        )}
+      </div>
+
+      {/* ── Right: Cohesive Monochrome Metrics (No Rainbow Colors) ── */}
+      <div className="flex items-center gap-5 lg:gap-6 shrink-0 text-xs font-mono">
+        <div className="flex flex-col items-end">
+          <span className="text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+            <Cpu className="w-3 h-3 text-zinc-400" /> Active Nodes
           </span>
-          <span className="hud-metric-value text-[0.85rem]">
+          <span className="text-sm font-bold text-white">12 Constellation</span>
+        </div>
+
+        <div className="h-6 w-[1px] bg-white/[0.08]" />
+
+        <div className="flex flex-col items-end">
+          <span className="text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+            <Radio className="w-3 h-3 text-zinc-400" /> Swarm Latency
+          </span>
+          <span className="text-sm font-bold text-white">14.2 <span className="text-[10px] text-zinc-400 font-normal">ms</span></span>
+        </div>
+
+        <div className="h-6 w-[1px] bg-white/[0.08] hidden xl:block" />
+
+        <div className="hidden xl:flex flex-col items-end">
+          <span className="text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-zinc-400" /> Auto-Evasions
+          </span>
+          <span className="text-sm font-bold text-white">
             {formatNumber(autonomousDecisions)}
           </span>
         </div>
 
-        <div className="hud-metric">
-          <span className="hud-metric-label flex items-center gap-1">
-            <User className="w-3 h-3" />
-            Human Intervention
-          </span>
-          <span
-            className="text-[0.85rem] font-bold"
-            style={{ color: 'var(--emerald)', fontFamily: 'var(--font-mono)' }}
-          >
-            0
-          </span>
-        </div>
+        <div className="h-6 w-[1px] bg-white/[0.08]" />
 
-        <div className="hud-metric">
-          <span className="hud-metric-label flex items-center gap-1">
-            <MessageSquare className="w-3 h-3" />
-            Msg/sec
+        <div className="flex flex-col items-end">
+          <span className="text-[10px] text-zinc-400 uppercase tracking-wider flex items-center gap-1">
+            <Activity className="w-3 h-3 text-zinc-400" /> Throughput
           </span>
-          <span className="hud-metric-value text-[0.85rem]">
-            {formatNumber(messagesPerSec)}
+          <span className="text-sm font-bold text-white">
+            {formatNumber(messagesPerSec)} <span className="text-[10px] font-normal text-zinc-400">Msg/s</span>
           </span>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

@@ -10,10 +10,10 @@ import {
   Radio,
   X,
   Flame,
-  ShieldAlert,
+  Navigation,
   Send,
-  Sparkles,
-  Navigation
+  Terminal,
+  Cpu
 } from 'lucide-react';
 
 export default function SatelliteInspector() {
@@ -37,7 +37,7 @@ export default function SatelliteInspector() {
       fromName: satName,
       toId: 'all',
       toName: 'Local Mesh',
-      content: `${satName} transmitting high-frequency P2P diagnostic ping across local neighborhood. Latency: 12ms.`,
+      content: `[DIAGNOSTIC_PING] ${satName} optical laser handshake complete with 11 neighborhood nodes. Round-trip ISL latency: 14.2ms.`,
       type: 'DIRECT',
       isDanger: false,
     });
@@ -49,7 +49,7 @@ export default function SatelliteInspector() {
       fromName: satName,
       toId: 'all',
       toName: 'Local Mesh',
-      content: `⚡ Diagnostic thruster pulse executed on ${satName} (ΔV: 0.05 m/s). Vector holding nominal.`,
+      content: `[THRUSTER_TEST] ${satName} fired cold-gas diagnostic attitude pulse (ΔV: 0.04 m/s). Kinetic trajectory vector holding 100% nominal.`,
       type: 'ALERT',
       isDanger: false,
     });
@@ -59,29 +59,29 @@ export default function SatelliteInspector() {
     <AnimatePresence>
       <motion.div
         key={sat.id}
-        initial={{ opacity: 0, scale: 0.92, y: 30 }}
+        initial={{ opacity: 0, scale: 0.96, y: 25 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
+        exit={{ opacity: 0, scale: 0.96, y: 15 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed bottom-6 right-6 z-[300] w-[360px] max-w-[calc(100vw-2rem)] p-5 rounded-3xl border border-cyan-500/35 shadow-[0_12px_45px_rgba(0,0,0,0.8)] backdrop-blur-3xl bg-[#060c18]/92 font-mono text-white overflow-hidden pointer-events-auto"
+        className="fixed bottom-6 right-[360px] z-[300] w-[360px] max-w-[calc(100vw-2rem)] p-5 rounded-2xl border border-white/[0.1] shadow-[0_20px_70px_rgba(0,0,0,0.95)] backdrop-blur-3xl bg-[#050b14]/96 font-mono text-white overflow-hidden pointer-events-auto"
       >
-        {/* Ambient header glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-24 bg-gradient-to-b from-cyan-500/20 via-transparent to-transparent pointer-events-none" />
+        {/* Top subtle silver/blue reflection */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-20 bg-gradient-to-b from-blue-500/10 to-transparent blur-2xl pointer-events-none" />
 
-        {/* Header Bar */}
-        <div className="relative z-10 flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-500/30 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+        {/* ── Inspector Header Bar ── */}
+        <div className="relative z-10 flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/[0.08]">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/[0.12] flex items-center justify-center text-xl shrink-0">
               {satIcon}
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-sans font-extrabold tracking-tight text-white leading-none">
+                <h3 className="text-sm font-sans font-black tracking-tight text-white truncate">
                   {satName}
                 </h3>
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_var(--emerald)]" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               </div>
-              <p className="text-[11px] text-cyan-300 font-bold mt-1 uppercase tracking-wider">
+              <p className="text-[10px] text-zinc-400 font-bold mt-0.5 uppercase tracking-wider font-mono truncate">
                 {satMission}
               </p>
             </div>
@@ -89,89 +89,92 @@ export default function SatelliteInspector() {
 
           <button
             onClick={() => setSelectedId(null)}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Live Vector & Physics Grid */}
-        <div className="relative z-10 grid grid-cols-2 gap-2.5 mb-4">
-          <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider flex items-center gap-1">
-              <Navigation className="w-3 h-3 text-cyan-400" /> Orbital Vel
+        {/* ── Precision Engineering Grid (Monochromatic & Serious) ── */}
+        <div className="relative z-10 grid grid-cols-2 gap-2 mb-4 text-xs">
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+              <Navigation className="w-3 h-3 text-zinc-400" /> Velocity
             </span>
-            <span className="text-sm font-black text-cyan-300">7.64 km/s</span>
+            <span className="text-sm font-bold text-white">7.64 <span className="text-[10px] text-zinc-400 font-normal">km/s</span></span>
           </div>
 
-          <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider flex items-center gap-1">
-              <Activity className="w-3 h-3 text-emerald-400" /> Altitude
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+              <Activity className="w-3 h-3 text-zinc-400" /> Orbital Alt
             </span>
-            <span className="text-sm font-black text-emerald-300">1,240 km</span>
+            <span className="text-sm font-bold text-white">1,240 <span className="text-[10px] text-zinc-400 font-normal">km</span></span>
           </div>
 
-          <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider flex items-center gap-1">
-              <Radio className="w-3 h-3 text-purple-400" /> P2P Mesh Ping
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+              <Radio className="w-3 h-3 text-zinc-400" /> Optical Ping
             </span>
-            <span className="text-sm font-black text-purple-300">14 ms (Active)</span>
+            <span className="text-sm font-bold text-white">14.2 <span className="text-[10px] text-zinc-400 font-normal">ms</span></span>
           </div>
 
-          <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-0.5">
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider flex items-center gap-1">
-              <Zap className="w-3 h-3 text-amber-400" /> Array Output
+          <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-0.5">
+            <span className="text-[9px] text-zinc-400 uppercase tracking-wider flex items-center gap-1 font-sans">
+              <Zap className="w-3 h-3 text-zinc-400" /> Laser Output
             </span>
-            <span className="text-sm font-black text-amber-300">2,450 W</span>
+            <span className="text-sm font-bold text-white">2,450 <span className="text-[10px] text-zinc-400 font-normal">W</span></span>
           </div>
         </div>
 
-        {/* Fuel Progress Bar */}
-        <div className="relative z-10 p-3 rounded-2xl bg-white/5 border border-white/10 mb-4">
-          <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
-            <span className="text-gray-400 uppercase flex items-center gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-amber-400" /> Propellant Reserve
+        {/* ── Hydrazine Propellant Reserve Gauge ── */}
+        <div className="relative z-10 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4 font-mono">
+          <div className="flex items-center justify-between text-xs mb-2">
+            <span className="text-zinc-400 uppercase font-sans font-bold flex items-center gap-1.5">
+              <Flame className="w-3.5 h-3.5 text-zinc-400" /> Hydrazine Reserve
             </span>
-            <span className={sat.fuelPercent > 50 ? 'text-emerald-400' : sat.fuelPercent > 25 ? 'text-amber-400' : 'text-red-400'}>
+            <span
+              className={`font-bold ${
+                sat.fuelPercent > 50
+                  ? 'text-white'
+                  : sat.fuelPercent > 25
+                  ? 'text-amber-400'
+                  : 'text-red-400'
+              }`}
+            >
               {Math.round(sat.fuelPercent)}%
             </span>
           </div>
-          <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden border border-white/10">
+          <div className="w-full h-1.5 rounded-full bg-black/60 overflow-hidden border border-white/10">
             <div
               className={`h-full transition-all duration-500 rounded-full ${
                 sat.fuelPercent > 50
-                  ? 'bg-gradient-to-r from-emerald-500 to-cyan-400 shadow-[0_0_10px_var(--emerald)]'
+                  ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.4)]'
                   : sat.fuelPercent > 25
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-400'
-                  : 'bg-gradient-to-r from-red-600 to-pink-500'
+                  ? 'bg-amber-400'
+                  : 'bg-red-500'
               }`}
               style={{ width: `${Math.round(sat.fuelPercent)}%` }}
             />
           </div>
         </div>
 
-        {/* Interactive Command Buttons */}
+        {/* ── Action Workbench Buttons (Cohesive Monochromatic / Blue Accent) ── */}
         <div className="relative z-10 space-y-2">
           <button
             onClick={handleBroadcastPing}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/35 text-cyan-300 font-bold text-xs uppercase tracking-wider transition-all transform active:scale-98 shadow-[0_0_15px_rgba(0,229,255,0.15)] hover:shadow-[0_0_20px_rgba(0,229,255,0.25)]"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
           >
-            <Send className="w-3.5 h-3.5" />
-            <span>Broadcast P2P Ping</span>
+            <Radio className="w-3.5 h-3.5 animate-pulse text-blue-400" />
+            <span>Transmit P2P Optical Ping</span>
           </button>
 
           <button
             onClick={handleDiagnosticBurn}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/35 text-amber-300 font-bold text-xs uppercase tracking-wider transition-all transform active:scale-98 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] text-zinc-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Execute Evasion Pulse Test</span>
+            <Zap className="w-3.5 h-3.5 text-zinc-400" />
+            <span>Test Evasion Thruster Pulse</span>
           </button>
-        </div>
-
-        <div className="relative z-10 mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-gray-400">
-          <span>SwarmOS Spatial Telemetry</span>
-          <span className="text-cyan-400 font-bold">● Live Sync</span>
         </div>
       </motion.div>
     </AnimatePresence>
